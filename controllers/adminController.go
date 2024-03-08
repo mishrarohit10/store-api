@@ -71,7 +71,7 @@ func AddBooks(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
+	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
 
 	// type EmailRequestBody struct {
 	// 	Role  string `json:"role"`
@@ -165,7 +165,7 @@ func RemoveBooks(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
+	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
 
 	//  remove book by id
 	ID := c.Param("id")
@@ -219,7 +219,7 @@ func UpdateBook(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
+	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
 
 	ID := c.Param("id")
 
@@ -286,7 +286,7 @@ func ListIssue(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
+	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
 
 	var lists []models.RequestEvents
 	result := initializers.DB.Find(&lists)
@@ -320,7 +320,7 @@ func ResolveIssue(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
+	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
 
 	ID := c.Param("id")
 
