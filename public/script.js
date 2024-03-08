@@ -295,9 +295,11 @@ async function raiseIssue() {
     }
 }
 
-
-async function createLib() {
+async function owner() {
     const form = document.querySelector('form');
+
+    var button = document.getElementById('ownerLib')
+    button.disabled = true;
     console.log("addBooks");
     // get values
     const name = form.library.value;
@@ -309,12 +311,12 @@ async function createLib() {
     try {
         console.log(typeof (id));
         const res = await fetch(url, {
-            method: 'PUT',
+            method: 'POST',
             body: JSON.stringify({ name, username, role }),
             headers: { 'Content-Type': 'application/json' }
         });
-        const body = JSON.stringify({ id, libID, title, authors, publisher, version, totalCopies, availabeCopies, totalCopies })
-        console.log(body, "this is body", res);
+        const data = await res.json();
+        console.log(data);
     }
     catch (err) {
         console.log(" err inside");

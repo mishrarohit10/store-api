@@ -58,7 +58,4 @@ type BookInventory struct {
 	AvailableCopies int    `json:"availableCopies,string"`
 }
 
-type Test struct {
-	Name string `json:"name"`
-}
 

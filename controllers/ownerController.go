@@ -4,9 +4,9 @@ import (
 	"LibManSys/api/initializers"
 	"LibManSys/api/models"
 	// "LibManSys/api/utils"
-	"log"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
+	"log"
 )
 
 func LibCreate(c *gin.Context) {
@@ -32,7 +32,11 @@ func LibCreate(c *gin.Context) {
 
 	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
 
-	var library models.Library
+	var library struct {
+		LibName  string `json:"libname"`
+		UserName string `json:"uname"`
+		Role     string `json:"role"`
+	}
 
 	// type EmailRequestBody struct {
 	// 	Role  string `json:"role"`
@@ -58,7 +62,7 @@ func LibCreate(c *gin.Context) {
 
 	var existingLib models.Library
 
-	if err := initializers.DB.Where("name = ?", library.Name).First(&existingLib).Error; err != nil {
+	if err := initializers.DB.Where("name = ?", library.LibName).First(&existingLib).Error; err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
 		log.Println("1st fn")
 	} else {
@@ -66,18 +70,18 @@ func LibCreate(c *gin.Context) {
 		return
 	}
 
-	log.Println(existingLib.Name, "-------------------------------LIB NAME")
-	if len(existingLib.Name) != 0 {
-		log.Println("err2231")
-		c.JSON(400, gin.H{"error": "user already exists try with new name"})
-		return
-	}
+	// log.Println(existingLib.Name, "-------------------------------LIB NAME")
+	// if len(existingLib.Name) != 0 {
+	// 	log.Println("err2231")
+	// 	c.JSON(400, gin.H{"error": "user already exists try with new name"})
+	// 	return
+	// }
 
-	log.Println(library.ID, library.Name, "libIDs")
+	// log.Println(library.ID, library.LibName, "libIDs")
 
-	libraries := models.Library{ID: library.ID, Name: library.Name}
+	lib := models.Library{Name: library.LibName}
 
-	if err := initializers.DB.Create(&libraries).Error; err != nil {
+	if err := initializers.DB.Create(&lib).Error; err != nil {
 		log.Println("err2233")
 		c.JSON(400, gin.H{"error": err.Error()})
 		return
@@ -110,12 +114,10 @@ func LibCreate(c *gin.Context) {
 	c.JSON(200, gin.H{"message": "done"})
 }
 
-func Owner(c * gin.Context) {
-	c.HTML(200,"owner.html","owner")
+func Owner(c *gin.Context) {
+	c.HTML(200, "owner.html", "owner")
 }
 
-func HTMLCreateLib(c * gin.Context) {
-	c.HTML(200,"createLib.html","owner")
+func HTMLCreateLib(c *gin.Context) {
+	c.HTML(200, "createLib.html", "owner")
 }
-
-
