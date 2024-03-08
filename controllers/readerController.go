@@ -343,3 +343,7 @@ func HTMLRaiseIssue(c *gin.Context) {
 func HTMLSuccess(c *gin.Context) {
 	c.HTML(200, "success.html", "success")
 }
+
+func HTMLUnauthorized(c *gin.Context) {
+	c.HTML(200, "error.html", "error")
+}

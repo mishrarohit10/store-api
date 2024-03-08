@@ -33,7 +33,6 @@
         <button>login</button>
     </form>
 
-
 </body>
 <footer>Copyright &copy 2024 mishrarohit10</footer>
 <script>
@@ -66,6 +65,9 @@
         }
         if (data.user) {
           location.assign(`/${data.role}`);
+        } else {
+            // emailError.textContent = 'h';
+            passwordError.textContent = 'invalid credentials';
         }
       }
       catch (err) {

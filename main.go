@@ -4,7 +4,6 @@ import (
 	"LibManSys/api/controllers"
 	"LibManSys/api/initializers"
 	"LibManSys/api/middlewares"
-
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
@@ -19,16 +18,19 @@ func main() {
 
 	r.LoadHTMLGlob("views/*")
 	r.Use(static.Serve("/", static.LocalFile("./public", true)))
-	r.Static("/public","./public")
+	r.Static("/public", "./public")
 	r.Use(cors.Default())
 
 	r.POST("/signup", controllers.Signup)
 	r.POST("/login", controllers.Login)
- 
+	r.GET("/signup", controllers.SignUpGet)
 	r.GET("/login", controllers.Premium)
 	r.GET("/logout", controllers.Logout)
 	r.GET("/home", controllers.Home)
-	r.GET("/signup", controllers.SignUpGet)
+	r.GET("/e", controllers.HTMLUnauthorized)
+
+	r.Use(middlewares.IsAuthorized())
+
 	r.GET("/admin", controllers.Admin)
 	r.GET("/reader", controllers.Reader)
 	r.GET("/owner", controllers.Owner)
@@ -41,8 +43,6 @@ func main() {
 	r.GET("/getPublisher", controllers.HTMLpublisher)
 	r.GET("/raiseIssue", controllers.HTMLRaiseIssue)
 	r.GET("/success", controllers.HTMLSuccess)
-
-	r.Use(middlewares.IsAuthorized())
 	r.POST("/createLib", controllers.LibCreate)
 	r.POST("/addBooks", controllers.AddBooks)
 	r.DELETE("/deleteBook/:id", controllers.RemoveBooks)
@@ -55,6 +55,4 @@ func main() {
 	r.GET("/searchByPublisher/:publisher", controllers.SearchByPublisher)
 
 	r.Run()
-}      
-
-
+}

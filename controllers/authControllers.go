@@ -96,9 +96,13 @@ func Signup(c *gin.Context) {
 		return
 	}
 
+	if len(user.Role) == 0 {
+		user.Role = "reader"
+	}
+
 	initializers.DB.Create(&user)
 
-	c.JSON(200, gin.H{"success": "user created"})
+	c.JSON(200, gin.H{"role": user.Role})
 }
 
 // PATH: go-auth/controllers/auth.go
