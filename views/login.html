@@ -1,0 +1,40 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candy Shop</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+    <nav>
+        <h1><a href="/home">Candy Shop</a></h1>
+        <ul>
+            <li><a href="/contactus">contact us</a></li>
+            <!-- <% if (user) { %> -->
+            <!-- <li>Welcome, <%= user.email %></li> -->
+            <li><a href="/logout">Log out</a></li>
+            <!-- <% } else { %> -->
+            <li><a href="/login">Log in</a></li>
+            <li><a href="/signup" class="btn">Sign up</a></li>
+            <!-- <% } %> -->
+        </ul>
+    </nav>
+
+    <form>
+        <h2>Login</h2>
+        <label for="email">Email</label>
+        <input type="text" name="email" />
+        <div class="email error"></div>
+        <label for="password">Password</label>
+        <input type="password" name="password" />
+        <div class="password error"></div>
+        <button>login</button>
+    </form>
+
+    <footer>Copyright &copy 2024 mishrarohit10</footer>
+
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candy Shop</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+    <nav>
+        <h1><a href="/home">E-Library</a></h1>
+        <ul>
+            <li><a href="/contactus">contact us</a></li>
+            <!-- <% if (user) { %> -->
+            <!-- <li>Welcome, <%= user.email %></li> -->
+            <li><a href="/logout">Log out</a></li>
+            <!-- <% } else { %> -->
+            <li><a href="/login">Log in</a></li>
+            <li><a href="/signup" class="btn">Sign up</a></li>
+            <!-- <% } %> -->
+        </ul>
+    </nav>
+
+    <form class="books">
+        <h2>Enter Author</h2>
+
+        <label for="author">Enter Author</label>
+        <input type="text" name="author" />
+
+        <button onclick="searchByAuthor()" id="searchA" type="button">search</button>
+    </form>
+
+    <div class="container">
+        <div>
+            <!-- <h1>Status</h1> -->
+            <h1 id="h"></h1>
+        </div>
+        <!-- <div>
+            <h1>AvailableDate</h1>
+            <h1 id="hh"></h1>
+        </div> -->
+    </div>
+
+</body>
+<footer>Copyright &copy 2024 mishrarohit10</footer>
+<script src="../public/script.js"></script>
+</html>
