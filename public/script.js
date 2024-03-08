@@ -316,7 +316,12 @@ async function owner() {
             headers: { 'Content-Type': 'application/json' }
         });
         const data = await res.json();
-        console.log(data);
+        console.log(data.message);
+        if (data) {
+            const h1 = document.getElementById('h')
+            h1.innerHTML = data.message;
+        }
+        
     }
     catch (err) {
         console.log(" err inside");

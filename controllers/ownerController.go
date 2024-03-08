@@ -63,7 +63,7 @@ func LibCreate(c *gin.Context) {
 	var existingLib models.Library
 
 	if err := initializers.DB.Where("name = ?", library.LibName).First(&existingLib).Error; err != nil {
-		c.JSON(400, gin.H{"error": err.Error()})
+		// c.JSON(400, gin.H{"error": err.Error()})
 		log.Println("1st fn")
 	} else {
 		c.JSON(400, gin.H{"message": "library name already exists, choose another name"})
