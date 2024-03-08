@@ -3,7 +3,7 @@ package controllers
 import (
 	"LibManSys/api/initializers"
 	"LibManSys/api/models"
-	// "LibManSys/api/utils"
+	"LibManSys/api/utils"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"log"
@@ -11,26 +11,26 @@ import (
 
 func LibCreate(c *gin.Context) {
 
-	// cookie, err := c.Cookie("token")
+	cookie, err := c.Cookie("token")
 
-	// if err != nil {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
+	if err != nil {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
 
-	// claims, err := utils.ParseToken(cookie)
+	claims, err := utils.ParseToken(cookie)
 
-	// if err != nil {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
+	if err != nil {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
 
-	// if claims.Role != "owner" {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
+	if claims.Role != "owner" {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
 
-	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
+	c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
 
 	var library struct {
 		LibName  string `json:"libname"`

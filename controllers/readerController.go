@@ -3,7 +3,7 @@ package controllers
 import (
 	"LibManSys/api/initializers"
 	"LibManSys/api/models"
-	// "LibManSys/api/utils"
+	"LibManSys/api/utils"
 	"github.com/gin-gonic/gin"
 	// "github.com/gin-gonic/gin/binding"
 	"log"
@@ -12,26 +12,26 @@ import (
 
 func SearchByTitle(c *gin.Context) {
 
-	// cookie, err := c.Cookie("token")
+	cookie, err := c.Cookie("token")
 
-	// if err != nil {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
+	if err != nil {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
 
-	// claims, err := utils.ParseToken(cookie)
+	claims, err := utils.ParseToken(cookie)
 
-	// if err != nil {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
+	if err != nil {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
 
-	// if claims.Role != "reader" {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
+	if claims.Role != "reader" {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
 
-	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
+	c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
 
 	Title := c.Param("title")
 
@@ -86,26 +86,26 @@ func SearchByTitle(c *gin.Context) {
 
 func SearchByAuthor(c *gin.Context) {
 
-	// cookie, err := c.Cookie("token")
+	cookie, err := c.Cookie("token")
 
-	// if err != nil {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
+	if err != nil {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
 
-	// claims, err := utils.ParseToken(cookie)
+	claims, err := utils.ParseToken(cookie)
 
-	// if err != nil {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
+	if err != nil {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
 
-	// if claims.Role != "reader" {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
+	if claims.Role != "reader" {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
 
-	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
+	c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
 
 	Authors := c.Param("author")
 
@@ -165,26 +165,26 @@ func SearchByAuthor(c *gin.Context) {
 
 func SearchByPublisher(c *gin.Context) {
 
-	// cookie, err := c.Cookie("token")
+	cookie, err := c.Cookie("token")
 
-	// if err != nil {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
+	if err != nil {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
 
-	// claims, err := utils.ParseToken(cookie)
+	claims, err := utils.ParseToken(cookie)
 
-	// if err != nil {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
+	if err != nil {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
 
-	// if claims.Role != "reader" {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
+	if claims.Role != "reader" {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
 
-	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
+	c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
 
 	Publisher := c.Param("publisher")
 
@@ -261,26 +261,26 @@ func SearchByPublisher(c *gin.Context) {
 
 func RaiseIssue(c *gin.Context) {
 
-	// cookie, err := c.Cookie("token")
+	cookie, err := c.Cookie("token")
 
-	// if err != nil {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
+	if err != nil {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
 
-	// claims, err := utils.ParseToken(cookie)
+	claims, err := utils.ParseToken(cookie)
 
-	// if err != nil {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
+	if err != nil {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
 
-	// if claims.Role != "reader" {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
+	if claims.Role != "reader" {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
 
-	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
+	c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
 
 	// type EmailRequestBody struct {
 	// 	Role  string `json:"role"`

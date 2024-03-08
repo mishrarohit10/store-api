@@ -32,7 +32,7 @@ func Admin(c *gin.Context) {
 		c.JSON(401, gin.H{"error": "unauthorized"})
 		return
 	}
-	
+
 	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
 	c.HTML(200, "admin.html", "admin")
 	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
@@ -52,26 +52,26 @@ func HTMLUpdateBooks(c *gin.Context) {
 
 func AddBooks(c *gin.Context) {
 
-	// cookie, err := c.Cookie("token")
+	cookie, err := c.Cookie("token")
 
-	// if err != nil {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
+	if err != nil {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
 
-	// claims, err := utils.ParseToken(cookie)
+	claims, err := utils.ParseToken(cookie)
 
-	// if err != nil {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
+	if err != nil {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
 
-	// if claims.Role != "admin" {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
+	if claims.Role != "admin" {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
 
-	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
+	c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
 
 	// type EmailRequestBody struct {
 	// 	Role  string `json:"role"`
@@ -146,26 +146,26 @@ func AddBooks(c *gin.Context) {
 
 func RemoveBooks(c *gin.Context) {
 
-	// cookie, err := c.Cookie("token")
+	cookie, err := c.Cookie("token")
 
-	// if err != nil {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
+	if err != nil {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
 
-	// claims, err := utils.ParseToken(cookie)
+	claims, err := utils.ParseToken(cookie)
 
-	// if err != nil {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
+	if err != nil {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
 
-	// if claims.Role != "admin" {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
+	if claims.Role != "admin" {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
 
-	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
+	c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
 
 	//  remove book by id
 	ID := c.Param("id")
@@ -200,26 +200,26 @@ func UpdateBook(c *gin.Context) {
 
 	log.Println("inside updatebook")
 
-	// cookie, err := c.Cookie("token")
+	cookie, err := c.Cookie("token")
 
-	// if err != nil {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
+	if err != nil {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
 
-	// claims, err := utils.ParseToken(cookie)
+	claims, err := utils.ParseToken(cookie)
 
-	// if err != nil {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
+	if err != nil {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
 
-	// if claims.Role != "admin" {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
+	if claims.Role != "admin" {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
 
-	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
+	c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
 
 	ID := c.Param("id")
 
@@ -267,26 +267,26 @@ func UpdateBook(c *gin.Context) {
 
 func ListIssue(c *gin.Context) {
 
-	// cookie, err := c.Cookie("token")
+	cookie, err := c.Cookie("token")
 
-	// if err != nil {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
+	if err != nil {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
 
-	// claims, err := utils.ParseToken(cookie)
+	claims, err := utils.ParseToken(cookie)
 
-	// if err != nil {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
+	if err != nil {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
 
-	// if claims.Role != "admin" {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
+	if claims.Role != "admin" {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
 
-	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
+	c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
 
 	var lists []models.RequestEvents
 	result := initializers.DB.Find(&lists)
