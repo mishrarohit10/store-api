@@ -3,7 +3,7 @@ package main
 import (
 	"LibManSys/api/controllers"
 	"LibManSys/api/initializers"
-	// "LibManSys/api/middlewares"
+	"LibManSys/api/middlewares"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/contrib/static"
@@ -42,7 +42,7 @@ func main() {
 	r.GET("/raiseIssue", controllers.HTMLRaiseIssue)
 	r.GET("/success", controllers.HTMLSuccess)
 
-	// r.Use(middlewares.IsAuthorized())
+	r.Use(middlewares.IsAuthorized())
 	r.POST("/createLib", controllers.LibCreate)
 	r.POST("/addBooks", controllers.AddBooks)
 	r.DELETE("/deleteBook/:id", controllers.RemoveBooks)

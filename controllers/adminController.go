@@ -14,25 +14,25 @@ import (
 
 func Admin(c *gin.Context) {
 
-	// cookie, err := c.Cookie("token")
+	cookie, err := c.Cookie("token")
 
-	// if err != nil {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
+	if err != nil {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
 
-	// claims, err := utils.ParseToken(cookie)
+	claims, err := utils.ParseToken(cookie)
 
-	// if err != nil {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
+	if err != nil {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
 
-	// if claims.Role != "admin" {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
-
+	if claims.Role != "admin" {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
+	
 	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
 	c.HTML(200, "admin.html", "admin")
 	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
