@@ -339,8 +339,8 @@ func ResolveIssue(c *gin.Context) {
 		IssueID int `json:"id" gorm:"primary_key"`
 		// ISBN               int
 		// ReaderID           int
-		IssueApprovedID int
-		IssueStatus     string
+		IssueApprovedID int	`json:"approvedID"`
+		IssueStatus     string	`json:"status"`
 		// IssueDate          time.Time
 		// ExpectedReturnDate time.Time
 		// ReturnDate         time.Time
@@ -353,7 +353,7 @@ func ResolveIssue(c *gin.Context) {
 
 	log.Println(updatedIssue)
 
-	issue.IssueID = updatedIssue.IssueID
+	// issue.IssueID = updatedIssue.IssueID
 	issue.IssueApprovedID = updatedIssue.IssueApprovedID
 	issue.IssueStatus = updatedIssue.IssueStatus
 

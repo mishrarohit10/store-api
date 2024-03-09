@@ -10,6 +10,10 @@ function updateBook() {
     location.assign("/updateBooks")
 }
 
+function goToRaiseissue() {
+    location.assign('/resolveIssue')
+}
+
 // function showDiv() {
 //     document.getElementsByClassName('book').style.display = "";
 // }
@@ -322,6 +326,30 @@ async function owner() {
             h1.innerHTML = data.message;
         }
         
+    }
+    catch (err) {
+        console.log(" err inside");
+        console.log(err);
+    }
+}
+
+async function resolveIssue() {
+    const form = document.querySelector('form');
+
+    // get values
+    const id = Number(form.id.value);
+
+    var url = `/resolveIssue/${id}`
+    console.log(url);
+    try {
+        console.log(typeof (id));
+        const res = await fetch(url, {
+            method: 'PUT',
+            body: JSON.stringify({ id, status:"accepted" }),
+            headers: { 'Content-Type': 'application/json' }
+        });
+        const data = await res.json();
+        console.log(data);
     }
     catch (err) {
         console.log(" err inside");

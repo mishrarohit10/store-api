@@ -347,3 +347,8 @@ func HTMLSuccess(c *gin.Context) {
 func HTMLUnauthorized(c *gin.Context) {
 	c.HTML(200, "error.html", "error")
 }
+
+func HTMLResolveIssue(c *gin.Context) {
+	c.HTML(200, "resolveIssue.html", "reader")
+}
+
