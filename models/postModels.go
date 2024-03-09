@@ -13,20 +13,20 @@ type Claims struct {
 type User struct {
 	ID            int    `json:"id" gorm:"primary_key"`
 	Name          string `json:"name" `
-	Email         string `json:"email"`
-	ContactNumber string `json:"contactNumber"`
-	Role          string `json:"role" `
-	Password      string `json:"password"`
+	Email         string `json:"email" binding:"required,email"`
+	ContactNumber string `json:"contactNumber" binding:"e164"`
+	Role          string `json:"role"`
+	Password      string `json:"password" binding:"required"`
 	LibID         int    `json:"libID" `
 }
 
 type RequestEvents struct {
 	ReqID        int `json:"id" gorm:"primary_key"`
-	BookID       int
-	ReaderID     int
-	RequestDate  time.Time
-	ApprovalDate time.Time
-	ApprovalID   int
+	BookID       int `json:"bookid"`
+	ReaderID     int	`json:"readerid"`
+	RequestDate  time.Time	
+	ApprovalDate time.Time	
+	ApprovalID   int	
 	RequestType  string
 }
 
