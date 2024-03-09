@@ -20,7 +20,10 @@ func IsAuthorized() gin.HandlerFunc {
 
 		claims, err := utils.ParseToken(cookie)
 
+		log.Println(claims)
+
 		if err != nil {
+			log.Println(err.Error())
 			log.Println("1")
 			c.JSON(401, gin.H{"error": "unauthorized"})
 			c.Abort()

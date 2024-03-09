@@ -31,7 +31,7 @@ func SearchByTitle(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
+	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
 
 	Title := c.Param("title")
 
@@ -105,7 +105,7 @@ func SearchByAuthor(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
+	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
 
 	Authors := c.Param("author")
 
@@ -184,7 +184,7 @@ func SearchByPublisher(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
+	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
 
 	Publisher := c.Param("publisher")
 
@@ -321,6 +321,26 @@ func RaiseIssue(c *gin.Context) {
 }
 
 func Reader(c *gin.Context) {
+	cookie, err := c.Cookie("token")
+
+	if err != nil {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
+
+	claims, err := utils.ParseToken(cookie)
+
+	if err != nil {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
+
+	if claims.Role != "reader" {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
+
+	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
 	c.HTML(200, "reader.html", "reader")
 }
 

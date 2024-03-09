@@ -33,7 +33,6 @@
         <button>Sign up</button>
     </form>
 
-    <footer>Copyright 2023 mishrarohit10</footer>
 
 </body>
 <script>
@@ -64,8 +63,8 @@
         //   emailError.textContent = data.error;
           passwordError.textContent = data.error;
         }
-        if (data.role) {
-          location.assign(`/${data.role}`);
+        if (data) {
+          location.assign('/login');
         }
       }
       catch (err) {
