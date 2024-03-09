@@ -76,7 +76,7 @@ func LibCreate(c *gin.Context) {
 	log.Println(existingLib.Name, "-------------------------------LIB NAME")
 	if len(existingLib.Name) != 0 {
 		log.Println("err2231")
-		c.JSON(400, gin.H{"error": "user already exists try with new name"})
+		c.JSON(400, gin.H{"error": "library already exists try with new name"})
 		return
 	}
 

@@ -34,8 +34,9 @@ async function getIssue() {
             headers: { 'Content-Type': 'application/json' }
         });
         const data = await res.json();
-        console.log(data);
-        if (!data) {
+        console.log(data.length);
+        if (data.length == 0) {
+            document.getElementById('h').innerHTML='no data available'
             return;
         }
         data.forEach(item => {
@@ -69,9 +70,9 @@ async function addBooks() {
     const title = form.title.value;
     const authors = form.authors.value;
     const publisher = form.publisher.value;
-    const version = form.libID.value;
-    const totalCopies = form.libID.value;
-    const availabeCopies = form.libID.value;
+    const version = form.version.value;
+    const totalCopies = form.totalCopies.value;
+    const availabeCopies = form.availabeCopies.value;
 
     try {
         const res = await fetch('/addBooks', {
@@ -100,9 +101,9 @@ async function updateBooks() {
     const title = form.title.value;
     const authors = form.authors.value;
     const publisher = form.publisher.value;
-    const version = form.libID.value;
-    const totalCopies = form.libID.value;
-    const availabeCopies = form.libID.value;
+    const version = form.version.value;
+    const totalCopies = form.totalCopies.value;
+    const availableCopies = form.availableCopies.value;
 
     var url = `/updateBook/${id}`
     console.log(url);
@@ -110,11 +111,11 @@ async function updateBooks() {
         console.log(typeof (id));
         const res = await fetch(url, {
             method: 'PUT',
-            body: JSON.stringify({ id, libID, title, authors, publisher, version, totalCopies, availabeCopies, totalCopies }),
+            body: JSON.stringify({ id, libID, title, authors, publisher, version, totalCopies, availableCopies, totalCopies }),
             headers: { 'Content-Type': 'application/json' }
         });
-        const body = JSON.stringify({ id, libID, title, authors, publisher, version, totalCopies, availabeCopies, totalCopies })
-        console.log(body, "this is body", res);
+        const body = JSON.stringify({ id, libID, title, authors, publisher, version, totalCopies, availableCopies, totalCopies })
+        console.log(body, "this is body");
     }
     catch (err) {
         console.log(" err inside");

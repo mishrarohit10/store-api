@@ -222,9 +222,12 @@ func UpdateBook(c *gin.Context) {
 	ID := c.Param("id")
 
 	log.Println(ID, "this is ID")
+
 	var book models.BookInventory
 
 	result := initializers.DB.First(&book, ID)
+
+	log.Println(result)
 
 	if result.Error != nil {
 		c.JSON(400, gin.H{"message": "record not found"})
@@ -237,7 +240,9 @@ func UpdateBook(c *gin.Context) {
 		return
 	}
 
-	// book.ISBN = updatedBook.ISBN
+	log.Println(updatedBook, "this is updated book")
+
+	book.ISBN = updatedBook.ISBN
 	book.LibID = updatedBook.LibID
 	book.Title = updatedBook.Title
 	book.Authors = updatedBook.Authors
@@ -245,6 +250,8 @@ func UpdateBook(c *gin.Context) {
 	book.Version = updatedBook.Version
 	book.TotalCopies = updatedBook.TotalCopies
 	book.AvailableCopies = updatedBook.AvailableCopies
+
+	log.Println(book, "this is  book")
 
 	error := initializers.DB.Save(&book)
 

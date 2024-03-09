@@ -12,12 +12,12 @@ type Claims struct {
 
 type User struct {
 	ID            int    `json:"id" gorm:"primary_key"`
-	Name          string `json:"name" `
-	Email         string `json:"email" binding:"required,email"`
-	ContactNumber string `json:"contactNumber" binding:"e164"`
+	Name          string `json:"name"`
+	Email         string `json:"email" binding:"email"`
+	ContactNumber string `json:"contactNumber"`
 	Role          string `json:"role"`
-	Password      string `json:"password" binding:"required"`
-	LibID         int    `json:"libID" `
+	Password      string `json:"password"`
+	LibID         int    `json:"libID"`
 }
 
 type RequestEvents struct {
@@ -37,7 +37,7 @@ type Library struct {
 
 type IssueRegistry struct {
 	IssueID            int `json:"id" gorm:"primary_key"`
-	ISBN               int
+	ISBN               int	
 	ReaderID           int
 	IssueApprovedID    int
 	IssueStatus        string
