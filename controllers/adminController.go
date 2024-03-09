@@ -5,9 +5,7 @@ import (
 	"LibManSys/api/models"
 	"LibManSys/api/utils"
 	"log"
-
-	// "time"
-
+	"time"
 	"github.com/gin-gonic/gin"
 	// "github.com/gin-gonic/gin/binding"
 )
@@ -341,7 +339,7 @@ func ResolveIssue(c *gin.Context) {
 		// ReaderID           int
 		IssueApprovedID int	`json:"approvedID"`
 		IssueStatus     string	`json:"status"`
-		// IssueDate          time.Time
+		IssueDate          time.Time
 		// ExpectedReturnDate time.Time
 		// ReturnDate         time.Time
 		// ReturnApprovedID   int
@@ -356,6 +354,8 @@ func ResolveIssue(c *gin.Context) {
 	// issue.IssueID = updatedIssue.IssueID
 	issue.IssueApprovedID = updatedIssue.IssueApprovedID
 	issue.IssueStatus = updatedIssue.IssueStatus
+	issue.IssueDate = time.Now()
+	// issue.ExpectedReturnDate = 
 
 	initializers.DB.Save(&issue)
 

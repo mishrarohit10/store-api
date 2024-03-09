@@ -273,7 +273,6 @@ async function searchByPublisher() {
     }
 }
 
-
 async function raiseIssue() {
     const form = document.querySelector('form');
 
@@ -313,19 +312,22 @@ async function owner() {
     var url = '/createLib'
     console.log(url);
     try {
-        console.log(typeof (id));
+        // console.log(typeof (id));
         const res = await fetch(url, {
             method: 'POST',
             body: JSON.stringify({ name, username, role }),
             headers: { 'Content-Type': 'application/json' }
         });
         const data = await res.json();
-        console.log(data.message);
-        if (data) {
+        console.log(data.message, "this is message");
+        console.log(data.error);
+        if (data.message) {
             const h1 = document.getElementById('h')
             h1.innerHTML = data.message;
+        } else {
+            const h1 = document.getElementById('h')
+            h1.innerHTML = data.error;
         }
-        
     }
     catch (err) {
         console.log(" err inside");
@@ -350,6 +352,12 @@ async function resolveIssue() {
         });
         const data = await res.json();
         console.log(data);
+        if(data.message) {
+            document.getElementById('h').innerHTML=data.message;
+        } else {
+            document.getElementById('h').innerHTML=data.IssueStatus
+            ;
+        }
     }
     catch (err) {
         console.log(" err inside");

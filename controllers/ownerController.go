@@ -3,7 +3,7 @@ package controllers
 import (
 	"LibManSys/api/initializers"
 	"LibManSys/api/models"
-	"LibManSys/api/utils"
+	// "LibManSys/api/utils"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"log"
@@ -11,30 +11,32 @@ import (
 
 func LibCreate(c *gin.Context) {
 
-	cookie, err := c.Cookie("token")
+	log.Println("inside libcreate fn")
 
-	if err != nil {
-		c.JSON(401, gin.H{"error": "unauthorized"})
-		return
-	}
+	// cookie, err := c.Cookie("token")
 
-	claims, err := utils.ParseToken(cookie)
+	// if err != nil {
+	// 	c.JSON(401, gin.H{"error": "unauthorized"})
+	// 	return
+	// }
 
-	if err != nil {
-		c.JSON(401, gin.H{"error": "unauthorized"})
-		return
-	}
+	// claims, err := utils.ParseToken(cookie)
 
-	if claims.Role != "owner" {
-		c.JSON(401, gin.H{"error": "unauthorized"})
-		return
-	}
+	// if err != nil {
+	// 	c.JSON(401, gin.H{"error": "unauthorized"})
+	// 	return
+	// }
 
-	c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
+	// if claims.Role != "owner" {
+	// 	c.JSON(401, gin.H{"error": "unauthorized"})
+	// 	return
+	// }
+
+	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
 
 	var library struct {
-		LibName  string `json:"libname"`
-		UserName string `json:"uname"`
+		LibName  string `json:"name"`
+		UserName string `json:"username"`
 		Role     string `json:"role"`
 	}
 
@@ -55,29 +57,32 @@ func LibCreate(c *gin.Context) {
 	// 	return
 	// }
 
+
+	log.Println(library)
 	if err := c.ShouldBindBodyWith(&library, binding.JSON); err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
-
+	log.Println(library)
+	log.Println(library.LibName, "name og teh lib")
 	var existingLib models.Library
 
 	if err := initializers.DB.Where("name = ?", library.LibName).First(&existingLib).Error; err != nil {
 		// c.JSON(400, gin.H{"error": err.Error()})
 		log.Println("1st fn")
-	} else {
-		c.JSON(400, gin.H{"message": "library name already exists, choose another name"})
+		// return
+	}
+
+	log.Println(existingLib.Name, "-------------------------------LIB NAME")
+	if len(existingLib.Name) != 0 {
+		log.Println("err2231")
+		c.JSON(400, gin.H{"error": "user already exists try with new name"})
 		return
 	}
 
-	// log.Println(existingLib.Name, "-------------------------------LIB NAME")
-	// if len(existingLib.Name) != 0 {
-	// 	log.Println("err2231")
-	// 	c.JSON(400, gin.H{"error": "user already exists try with new name"})
-	// 	return
-	// }
-
 	// log.Println(library.ID, library.LibName, "libIDs")
+
+	log.Println(library.LibName)
 
 	lib := models.Library{Name: library.LibName}
 
@@ -86,6 +91,8 @@ func LibCreate(c *gin.Context) {
 		c.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
+
+	log.Println(lib)
 
 	var user models.User
 
@@ -101,7 +108,7 @@ func LibCreate(c *gin.Context) {
 	newUser.Role = user.Role
 
 	if len(newUser.Role) == 0 {
-		newUser.Role = "Owner"
+		newUser.Role = "owner"
 	}
 
 	result2 := initializers.DB.Create(&newUser)
