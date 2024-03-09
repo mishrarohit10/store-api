@@ -137,7 +137,7 @@ func SearchByAuthor(c *gin.Context) {
 	}
 
 	type response struct {
-		Title string
+		Title         string
 		Status        string
 		AvailableDate string
 	}
@@ -154,9 +154,9 @@ func SearchByAuthor(c *gin.Context) {
 			var issueReg models.IssueRegistry
 
 			initializers.DB.Where("isbn = ?", book[i].ISBN).First(&issueReg)
-			finalRes = append(finalRes, response{book[i].Title,"Not available", issueReg.ExpectedReturnDate.String()})
+			finalRes = append(finalRes, response{book[i].Title, "Not available", issueReg.ExpectedReturnDate.String()})
 		} else {
-			finalRes = append(finalRes, response{book[i].Title,"Available available", "Available now"})
+			finalRes = append(finalRes, response{book[i].Title, "Available available", "Available now"})
 		}
 	}
 	log.Println(finalRes)
@@ -201,7 +201,9 @@ func SearchByPublisher(c *gin.Context) {
 	// if err := c.ShouldBindBodyWith(&requestBody, binding.JSON); err != nil {
 	// 	c.JSON(400, gin.H{"error": err.Error()})
 	// }
+
 	// log.Println(requestBody.Email)
+	
 	// if requestBody.Role != "Reader" {
 	// 	c.JSON(400, gin.H{"error": "unauthorized"})
 	// 	return
@@ -216,7 +218,7 @@ func SearchByPublisher(c *gin.Context) {
 	}
 
 	type response struct {
-		Title string
+		Title         string
 		Status        string
 		AvailableDate string
 	}
@@ -233,9 +235,9 @@ func SearchByPublisher(c *gin.Context) {
 			var issueReg models.IssueRegistry
 
 			initializers.DB.Where("isbn = ?", book[i].ISBN).First(&issueReg)
-			finalRes = append(finalRes, response{book[i].Title,"Not available", issueReg.ExpectedReturnDate.String()})
+			finalRes = append(finalRes, response{book[i].Title, "Not available", issueReg.ExpectedReturnDate.String()})
 		} else {
-			finalRes = append(finalRes, response{book[i].Title,"Available available", "Available now"})
+			finalRes = append(finalRes, response{book[i].Title, "Available available", "Available now"})
 		}
 	}
 	log.Println(finalRes)
@@ -371,4 +373,3 @@ func HTMLUnauthorized(c *gin.Context) {
 func HTMLResolveIssue(c *gin.Context) {
 	c.HTML(200, "resolveIssue.html", "reader")
 }
-
