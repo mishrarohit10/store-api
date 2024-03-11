@@ -45,7 +45,6 @@ func main() {
 	r.GET("/success", controllers.HTMLSuccess)
 	r.GET("/resolveIssue", controllers.HTMLResolveIssue)
 
-
 	r.POST("/createLib", controllers.LibCreate)
 	r.POST("/addBooks", controllers.AddBooks)
 	r.DELETE("/deleteBook/:id", controllers.RemoveBooks)

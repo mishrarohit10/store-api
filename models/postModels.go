@@ -54,8 +54,8 @@ type BookInventory struct {
 	Authors         string `json:"authors"`
 	Publisher       string `json:"publisher"`
 	Version         int    `json:"version"`
-	TotalCopies     int    `json:"totalCopies,string"`
-	AvailableCopies int    `json:"availableCopies,string"`
+	TotalCopies     int    `json:"totalCopies"`
+	AvailableCopies int    `json:"availableCopies"`
 }
 
 

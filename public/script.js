@@ -97,13 +97,13 @@ async function updateBooks() {
     // get values
     const id = Number(form.ISBN.value);
     console.log("updateBooks");
-    const libID = form.libID.value;
+    const libID = Number(form.libID.value);
     const title = form.title.value;
     const authors = form.authors.value;
     const publisher = form.publisher.value;
-    const version = form.version.value;
-    const totalCopies = form.totalCopies.value;
-    const availableCopies = form.availableCopies.value;
+    const version = Number(form.version.value);
+    const totalCopies = Number(form.totalCopies.value);
+    const availableCopies = Number(form.availableCopies.value);
 
     var url = `/updateBook/${id}`
     console.log(url);
@@ -116,6 +116,8 @@ async function updateBooks() {
         });
         const body = JSON.stringify({ id, libID, title, authors, publisher, version, totalCopies, availableCopies, totalCopies })
         console.log(body, "this is body");
+        const data = res.json()
+        console.log(data);
     }
     catch (err) {
         console.log(" err inside");
