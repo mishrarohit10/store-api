@@ -4,9 +4,9 @@ import (
 	"LibManSys/api/initializers"
 	"LibManSys/api/models"
 	"LibManSys/api/utils"
+	"github.com/gin-gonic/gin"
 	"log"
 	"time"
-	"github.com/gin-gonic/gin"
 	// "github.com/gin-gonic/gin/binding"
 )
 
@@ -191,7 +191,7 @@ func RemoveBooks(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200,gin.H{"message":"done"})
+	c.JSON(200, gin.H{"message": "done"})
 }
 
 func UpdateBook(c *gin.Context) {
@@ -223,7 +223,6 @@ func UpdateBook(c *gin.Context) {
 
 	log.Println(ID, "this is ID")
 
-	// log.Println(ID, "this is ID")
 	var book models.BookInventory
 
 	result := initializers.DB.First(&book, ID)
@@ -268,7 +267,7 @@ func UpdateBook(c *gin.Context) {
 
 	log.Println("saved")
 	log.Println(book, "this is saved book")
-	c.JSON(200, book)
+	c.JSON(201, gin.H{"message": "done"})
 }
 
 func ListIssue(c *gin.Context) {
@@ -345,16 +344,16 @@ func ResolveIssue(c *gin.Context) {
 		IssueID int `json:"id" gorm:"primary_key"`
 		// ISBN               int
 		// ReaderID           int
-		IssueApprovedID int	`json:"approvedID"`
-		IssueStatus     string	`json:"status"`
-		IssueDate          time.Time
+		IssueApprovedID int    `json:"approvedID"`
+		IssueStatus     string `json:"status"`
+		IssueDate       time.Time
 		// ExpectedReturnDate time.Time
 		// ReturnDate         time.Time
 		// ReturnApprovedID   int
 	}
 
 	if err := c.ShouldBindJSON(&updatedIssue); err != nil {
-		c.JSON(204, gin.H{"error": err.Error()})
+		c.JSON(400, gin.H{"error": err.Error()})
 	}
 
 	log.Println(updatedIssue)
@@ -363,9 +362,9 @@ func ResolveIssue(c *gin.Context) {
 	issue.IssueApprovedID = updatedIssue.IssueApprovedID
 	issue.IssueStatus = updatedIssue.IssueStatus
 	issue.IssueDate = time.Now()
-	// issue.ExpectedReturnDate = 
+	// issue.ExpectedReturnDate =
 
 	initializers.DB.Save(&issue)
 
-	c.JSON(200, issue)
+	c.JSON(204, gin.H{"message": "done"})
 }

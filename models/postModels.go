@@ -22,8 +22,8 @@ type User struct {
 
 type RequestEvents struct {
 	ReqID        int `json:"id" gorm:"primary_key"`
-	BookID       int `json:"bookid"`
-	ReaderID     int	`json:"readerid"`
+	BookID       int `json:"bookId"`
+	ReaderID     int	`json:"readerId"`
 	RequestDate  time.Time	
 	ApprovalDate time.Time	
 	ApprovalID   int	
@@ -31,12 +31,12 @@ type RequestEvents struct {
 }
 
 type Library struct {
-	ID   int    `json:"id" gorm:"primary_key"`
+	ID   int    `json:"libId" gorm:"primary_key"`
 	Name string `json:"name"`
 }
 
 type IssueRegistry struct {
-	IssueID            int `json:"id" gorm:"primary_key"`
+	IssueID            int `json:"issueId" gorm:"primary_key"`
 	ISBN               int	
 	ReaderID           int
 	IssueApprovedID    int
@@ -48,7 +48,7 @@ type IssueRegistry struct {
 }
 
 type BookInventory struct {
-	ISBN            int    `json:"id" gorm:"primary_key"`
+	ISBN            int    `json:"ISBN" gorm:"primary_key"`
 	LibID           int    `json:"libID,string"`
 	Title           string `json:"title"`
 	Authors         string `json:"authors"`

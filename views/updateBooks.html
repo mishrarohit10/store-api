@@ -25,10 +25,10 @@
     <form class="books">
         <h2>Enter Fields</h2>
         <label for="ISBN">ISBN</label>
-        <input type="text" name="ISBN" />
+        <input type="number" name="ISBN" required/>
 
         <label for="libID">LibID</label>
-        <input type="text" name="libID" />
+        <input type="number" name="libID" />
 
         <label for="title">Title</label>
         <input type="text" name="title" />
@@ -48,8 +48,13 @@
         <label for="availabeCopies">AvailableCopies</label>
         <input type="number" name="availableCopies" />
 
-        <button onclick="updateBooks()" type="button" >update</button>
+        <button onclick="updateBooks()" >update</button>
     </form>
+
+    <div class="container">
+        <h1 id="h"></h1>
+    </div>
+
     <footer>Copyright &copy 2024 mishrarohit10</footer>
 </body>
 <script src="../public/script.js"></script>

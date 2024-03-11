@@ -14,9 +14,6 @@ function goToRaiseissue() {
     location.assign('/resolveIssue')
 }
 
-// function showDiv() {
-//     document.getElementsByClassName('book').style.display = "";
-// }
 
 const button = document.querySelector('button[name="issues"]');
 
@@ -93,9 +90,9 @@ async function addBooks() {
 
 async function updateBooks() {
     const form = document.querySelector('form');
-    console.log("addBooks");
+    console.log("updatebooks");
     // get values
-    const id = Number(form.ISBN.value);
+    const ISBN = Number(form.ISBN.value);
     console.log("updateBooks");
     const libID = Number(form.libID.value);
     const title = form.title.value;
@@ -105,21 +102,24 @@ async function updateBooks() {
     const totalCopies = Number(form.totalCopies.value);
     const availableCopies = Number(form.availableCopies.value);
 
-    var url = `/updateBook/${id}`
+    var url = `/updateBook/${ISBN}`
     console.log(url);
     try {
-        console.log(typeof (id));
+        console.log(typeof (libID));
         const res = await fetch(url, {
             method: 'PUT',
-            body: JSON.stringify({ id, libID, title, authors, publisher, version, totalCopies, availableCopies, totalCopies }),
+            body: JSON.stringify({ ISBN, libID, title, authors, publisher, version, totalCopies, availableCopies, totalCopies }),
             headers: { 'Content-Type': 'application/json' }
         });
-        const body = JSON.stringify({ id, libID, title, authors, publisher, version, totalCopies, availableCopies, totalCopies })
-        console.log(body, "this is body");
-        const data = res.json()
-        console.log(data);
+        const data =  await res.json();
+        console.log(data, "this is data");
+        if(data) {
+            document.getElementById('h').innerHTML='Done';
+        } else {
+            document.getElementById('h').innerHTML='failed to update';
+        }
     }
-    catch (err) {
+    catch(err) {
         console.log(" err inside");
         console.log(err);
     }
