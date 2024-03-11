@@ -71,32 +71,15 @@ func AddBooks(c *gin.Context) {
 
 	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
 
-	// type EmailRequestBody struct {
-	// 	Role  string `json:"role"`
-	// 	Email string `json:"email"`
-	// }
-
-	// log.Println("error is test")
-	// var requestBody EmailRequestBody
-
-	// if err := c.ShouldBindBodyWith(&requestBody, binding.JSON); err != nil {
-	// 	c.JSON(400, gin.H{"error": err.Error()})
-	// }
-	// log.Println(requestBody.Email)
-	// if requestBody.Role != "Admin" {
-	// 	c.JSON(400, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
-
 	var addBooks struct {
-		ISBN            int    `json:"id,string" gorm:"primary_key"`
-		LibID           int    `json:"libID,string"`
+		ISBN            int    `json:"ISBN" gorm:"primary_key"`
+		LibID           int    `json:"libID"`
 		Title           string `json:"title"`
 		Authors         string `json:"authors"`
 		Publisher       string `json:"publisher"`
-		Version         int    `json:"version,string"`
-		TotalCopies     int    `json:"totalCopies,string"`
-		AvailableCopies int    `json:"availableCopies,string"`
+		Version         int    `json:"version"`
+		TotalCopies     int    `json:"totalCopies"`
+		AvailableCopies int    `json:"availableCopies"`
 		LibAdminEmail   string
 	}
 
@@ -107,14 +90,19 @@ func AddBooks(c *gin.Context) {
 		return
 	}
 
-	inventory := models.BookInventory{ISBN: addBooks.ISBN, LibID: addBooks.LibID, Title: addBooks.Title, Authors: addBooks.Authors, Publisher: addBooks.Publisher, Version: addBooks.Version, AvailableCopies: addBooks.AvailableCopies}
+	log.Println(addBooks.AvailableCopies, "----------available copies")
+
+	inventory := models.BookInventory{ISBN: addBooks.ISBN, LibID: addBooks.LibID, Title: addBooks.Title, Authors: addBooks.Authors, Publisher: addBooks.Publisher, Version: addBooks.Version, TotalCopies: addBooks.TotalCopies, AvailableCopies: addBooks.AvailableCopies}
 
 	ID := addBooks.ISBN
+
+	log.Println(inventory.TotalCopies, "---------- inventory total copies")
+	log.Println(inventory.AvailableCopies, "---------- inventory available copies")
 
 	var exists models.BookInventory
 	result := initializers.DB.First(&exists, ID)
 
-	log.Println(result)
+	initializers.DB.Select("total_copies").Find(&exists)
 
 	if result.Error != nil {
 		// create inventory
@@ -131,13 +119,13 @@ func AddBooks(c *gin.Context) {
 			return
 		}
 
-		updatedInventory.TotalCopies = inventory.TotalCopies + inventory.AvailableCopies
+		updatedInventory.TotalCopies = inventory.TotalCopies + exists.TotalCopies
+		updatedInventory.AvailableCopies = inventory.AvailableCopies + exists.AvailableCopies
 
 		if err := initializers.DB.Save(&updatedInventory).Error; err != nil {
 			c.JSON(400, gin.H{"error": err.Error()})
 			return
 		}
-
 		c.JSON(200, updatedInventory)
 	}
 }

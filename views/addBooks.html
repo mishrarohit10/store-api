@@ -25,29 +25,29 @@
     <form class="books">
         <h2>Enter Fields</h2>
         <label for="ISBN">ISBN</label>
-        <input type="number" name="ISBN" />
+        <input type="number" name="ISBN" required/>
 
         <label for="libID">LibID</label>
-        <input type="number" name="libID" />
+        <input type="number" name="libID" required/>
 
         <label for="title">Title</label>
-        <input type="text" name="title" />
+        <input type="text" name="title" required/>
 
         <label for="authors">Authors</label>
-        <input type="text" name="authors" />
+        <input type="text" name="authors" required/>
 
         <label for="publisher">Publisher</label>
-        <input type="text" name="publisher"  />
+        <input type="text" name="publisher" required/>
 
         <label for="version">Version</label>
         <input type="number" name="version" min="0" 
-        max="1000" step="0.01"/>
+        max="1000" step="0.01" required/>
 
         <label for="totalCopies">TotalCopies</label>
-        <input type="number" name="totalCopies" />
+        <input type="number" name="totalCopies" required />
 
-        <label for="availabeCopies">AvailableCopies</label>
-        <input type="number" name="availabeCopies" />
+        <label for="availableCopies">AvailableCopies</label>
+        <input type="number" name="availableCopies" required/>
 
         <button onclick="addBooks()" type="button" >add</button>
     </form>

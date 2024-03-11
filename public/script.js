@@ -62,19 +62,23 @@ async function addBooks() {
     const form = document.querySelector('form');
     console.log("addBooks");
     // get values
-    const id = form.ISBN.value;
-    const libID = form.libID.value;
+    const ISBN = Number(form.ISBN.value);
+    const libID = Number(form.libID.value);
     const title = form.title.value;
     const authors = form.authors.value;
     const publisher = form.publisher.value;
-    const version = form.version.value;
-    const totalCopies = form.totalCopies.value;
-    const availabeCopies = form.availabeCopies.value;
+    const version = Number(form.version.value);
+    const totalCopies = Number(form.totalCopies.value);
+    const availableCopies = Number(form.availableCopies.value);
+
+    if(ISBN==0 || libID==0 || title=="" || authors=="" || publisher=="" || version=="" || totalCopies==0 || availableCopies==0) {
+        return;
+    }
 
     try {
         const res = await fetch('/addBooks', {
             method: 'POST',
-            body: JSON.stringify({ id, libID, title, authors, publisher, version, totalCopies, availabeCopies, totalCopies }),
+            body: JSON.stringify({ ISBN, libID, title, authors, publisher, version, totalCopies, availableCopies, totalCopies }),
             headers: { 'Content-Type': 'application/json' }
         });
         const data = await res.json();
@@ -93,6 +97,10 @@ async function updateBooks() {
     console.log("updatebooks");
     // get values
     const ISBN = Number(form.ISBN.value);
+
+    if(ISBN <= 0)  {
+        return;
+    }
     console.log("updateBooks");
     const libID = Number(form.libID.value);
     const title = form.title.value;
@@ -111,7 +119,7 @@ async function updateBooks() {
             body: JSON.stringify({ ISBN, libID, title, authors, publisher, version, totalCopies, availableCopies, totalCopies }),
             headers: { 'Content-Type': 'application/json' }
         });
-        const data =  await res.json();
+        const data =  await res;
         console.log(data, "this is data");
         if(data) {
             document.getElementById('h').innerHTML='Done';
