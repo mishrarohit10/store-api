@@ -3,7 +3,7 @@ package controllers
 import (
 	"LibManSys/api/initializers"
 	"LibManSys/api/models"
-	// "LibManSys/api/utils"
+	"LibManSys/api/utils"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"log"
@@ -56,7 +56,6 @@ func LibCreate(c *gin.Context) {
 	// 	c.JSON(400, gin.H{"error": "unauthorized"})
 	// 	return
 	// }
-
 
 	log.Println(library)
 	if err := c.ShouldBindBodyWith(&library, binding.JSON); err != nil {
@@ -122,6 +121,28 @@ func LibCreate(c *gin.Context) {
 }
 
 func Owner(c *gin.Context) {
+
+	cookie, err := c.Cookie("token")
+
+	if err != nil {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
+
+	claims, err := utils.ParseToken(cookie)
+
+	if err != nil {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
+
+	if claims.Role != "owner" {
+		c.JSON(401, gin.H{"error": "unauthorized"})
+		return
+	}
+
+	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
+
 	c.HTML(200, "owner.html", "owner")
 }
 

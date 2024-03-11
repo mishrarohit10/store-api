@@ -37,23 +37,6 @@ func SearchByTitle(c *gin.Context) {
 
 	log.Println(Title, "------------title-----------")
 
-	// type EmailRequestBody struct {
-	// 	Role  string `json:"role"`
-	// 	Email string `json:"email"`
-	// }
-
-	// // log.Println("error is test")
-	// var requestBody EmailRequestBody
-
-	// if err := c.ShouldBindBodyWith(&requestBody, binding.JSON); err != nil {
-	// 	c.JSON(400, gin.H{"error": err.Error()})
-	// }
-	// log.Println(requestBody.Email)
-	// if requestBody.Role != "Reader" {
-	// 	c.JSON(400, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
-
 	var book models.BookInventory
 
 	result := initializers.DB.Where("title =?", Title).First(&book)
@@ -78,7 +61,7 @@ func SearchByTitle(c *gin.Context) {
 		response.AvailableDate = issueReg.ExpectedReturnDate.String()
 	} else {
 		response.Status = "Available"
-		response.AvailableDate = "Available now"
+		// response.AvailableDate = "Available now"
 	}
 	// log.Println(response)
 	c.JSON(200, response)
@@ -111,22 +94,6 @@ func SearchByAuthor(c *gin.Context) {
 
 	log.Println(Authors, "------------Authors-----------")
 
-	// type EmailRequestBody struct {
-	// 	Role  string `json:"role"`
-	// 	Email string `json:"email"`
-	// }
-
-	// // log.Println("error is test")
-	// var requestBody EmailRequestBody
-
-	// if err := c.ShouldBindBodyWith(&requestBody, binding.JSON); err != nil {
-	// 	c.JSON(400, gin.H{"error": err.Error()})
-	// }
-	// log.Println(requestBody.Email)
-	// if requestBody.Role != "Reader" {
-	// 	c.JSON(400, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
 
 	var book []models.BookInventory
 
@@ -156,7 +123,7 @@ func SearchByAuthor(c *gin.Context) {
 			initializers.DB.Where("isbn = ?", book[i].ISBN).First(&issueReg)
 			finalRes = append(finalRes, response{book[i].Title, "Not available", issueReg.ExpectedReturnDate.String()})
 		} else {
-			finalRes = append(finalRes, response{book[i].Title, "Available available", "Available now"})
+			finalRes = append(finalRes, response{book[i].Title, "Available Now", "Available Now"})
 		}
 	}
 	log.Println(finalRes)
@@ -203,7 +170,7 @@ func SearchByPublisher(c *gin.Context) {
 	// }
 
 	// log.Println(requestBody.Email)
-	
+
 	// if requestBody.Role != "Reader" {
 	// 	c.JSON(400, gin.H{"error": "unauthorized"})
 	// 	return
@@ -282,44 +249,28 @@ func RaiseIssue(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
-
-	// type EmailRequestBody struct {
-	// 	Role  string `json:"role"`
-	// 	Email string `json:"email"`
-	// }
-
-	// // log.Println("error is test")
-	// var requestBody EmailRequestBody
-
-	// if err := c.ShouldBindBodyWith(&requestBody, binding.JSON); err != nil {
-	// 	c.JSON(400, gin.H{"error": err.Error()})
-	// }
-	// log.Println(requestBody.Email)
-	// if requestBody.Role != "reader" {
-	// 	c.JSON(400, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
+	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
 
 	var raise struct {
-		ReaderID int    `json:"readerID"`
-		BookID   int    `json:"bookID"`
-		Email    string `json:"email"`
+		BookID int    `json:"bookID"`
+		Email  string `json:"email"`
 	}
 
 	if err := c.ShouldBindJSON(&raise); err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
 	}
 
+	log.Println(raise.BookID, "this is issue")
+
 	var issue models.RequestEvents
+
+	issue.BookID = raise.BookID
 
 	if err := initializers.DB.Save(&issue).Error; err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
-
-	c.JSON(200, gin.H{"message": "issue raised"})
-
+	c.JSON(200, gin.H{"message": "Issue raised"})
 }
 
 func Reader(c *gin.Context) {

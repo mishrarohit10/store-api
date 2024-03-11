@@ -83,9 +83,11 @@ async function addBooks() {
         });
         const data = await res.json();
         console.log(data);
-        // if (data) {
-        //     location.assign('/success');
-        // }
+        if (data) {
+            document.getElementById('h').innerHTML='Done'
+        } else {
+            document.getElementById('h').innerHTML='failed'
+        }
     }
     catch (err) {
         console.log(err);
@@ -178,8 +180,11 @@ async function searchByTitle() {
         if (!data) {
             return;
         }
-        document.getElementById("h").innerHTML = data.Status;
-        // document.getElementById("hh").innerHTML = data.AvailableDate;
+        if(data.AvailableDate == "") {
+            document.getElementById('hh').innerHTML="now";
+        } else {
+            document.getElementById('hh').innerHTML=data.AvailableDate;
+        }
     }
     catch (err) {
         console.log(" err inside");
@@ -220,12 +225,11 @@ async function searchByAuthor() {
             title.textContent = item.Title;
 
             const body = document.createElement('p');
-            body.textContent = item.Status;
+            body.textContent = item.AvailableDate;
 
             card.appendChild(title);
             card.appendChild(body);
             container.appendChild(card);
-
         });
         
     }
@@ -270,7 +274,7 @@ async function searchByPublisher() {
             title.textContent = item.Title;
 
             const body = document.createElement('p');
-            body.textContent = item.Status;
+            body.textContent = item.AvailableDate;
 
             card.appendChild(title);
             card.appendChild(body);
@@ -299,7 +303,7 @@ async function raiseIssue() {
             headers: { 'Content-Type': 'application/json' }
         });
         const data = await res.json();
-        console.log(data);
+        console.log(data.message);
         if (data) {
             const h2 = document.getElementById('h')
             h2.innerHTML = 'Issue Raised'
@@ -358,16 +362,14 @@ async function resolveIssue() {
         console.log(typeof (id));
         const res = await fetch(url, {
             method: 'PUT',
-            body: JSON.stringify({ id, status:"accepted" }),
             headers: { 'Content-Type': 'application/json' }
         });
-        const data = await res.json();
+        const data = await res;
         console.log(data);
-        if(data.message) {
-            document.getElementById('h').innerHTML=data.message;
+        if(data) {
+            document.getElementById('h').innerHTML='resolved';
         } else {
-            document.getElementById('h').innerHTML=data.IssueStatus
-            ;
+            document.getElementById('h').innerHTML='error';
         }
     }
     catch (err) {

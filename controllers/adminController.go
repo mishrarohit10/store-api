@@ -104,6 +104,8 @@ func AddBooks(c *gin.Context) {
 
 	initializers.DB.Select("total_copies").Find(&exists)
 
+	log.Println(exists.AvailableCopies, "---------- exists available copies")
+
 	if result.Error != nil {
 		// create inventory
 		log.Println("inside result")
@@ -317,42 +319,46 @@ func ResolveIssue(c *gin.Context) {
 
 	ID := c.Param("id")
 
+	log.Println(ID, "this is id")
 	// var issue models.IssueRegistry
 
-	var issue models.IssueRegistry
+	var issue models.RequestEvents
 
 	result := initializers.DB.First(&issue, ID)
+
+	log.Println(issue, "issue reg")
 
 	if result.Error != nil {
 		c.JSON(400, gin.H{"message": "record not found"})
 		return
 	}
 
-	var updatedIssue struct {
-		IssueID int `json:"id" gorm:"primary_key"`
-		// ISBN               int
-		// ReaderID           int
-		IssueApprovedID int    `json:"approvedID"`
-		IssueStatus     string `json:"status"`
-		IssueDate       time.Time
-		// ExpectedReturnDate time.Time
-		// ReturnDate         time.Time
-		// ReturnApprovedID   int
-	}
+	// var resolvedEvent struct {
+	// 	ReqID        int `json:"id" gorm:"primary_key"`
+	// 	BookID       int `json:"bookId"`
+	// 	ReaderID     int	`json:"readerId"`
+	// 	RequestDate  time.Time
+	// 	ApprovalDate time.Time
+	// 	ApprovalID   int
+	// 	RequestType  string
+	// }
 
-	if err := c.ShouldBindJSON(&updatedIssue); err != nil {
-		c.JSON(400, gin.H{"error": err.Error()})
-	}
+	var updateIssueRegistry models.IssueRegistry
 
-	log.Println(updatedIssue)
+	log.Println(issue.BookID, "book id")
 
-	// issue.IssueID = updatedIssue.IssueID
-	issue.IssueApprovedID = updatedIssue.IssueApprovedID
-	issue.IssueStatus = updatedIssue.IssueStatus
-	issue.IssueDate = time.Now()
-	// issue.ExpectedReturnDate =
+	updateIssueRegistry.ISBN = issue.BookID
+	updateIssueRegistry.ReaderID = issue.ReaderID
+	updateIssueRegistry.IssueStatus = "accepted"
+	updateIssueRegistry.IssueDate = time.Now()
+	updateIssueRegistry.ExpectedReturnDate = time.Now().AddDate(0, 0, 7)
+	updateIssueRegistry.ReturnDate = time.Now().AddDate(0, 0, 7)
 
-	initializers.DB.Save(&issue)
+	log.Println(updateIssueRegistry.ISBN, "updated issue reg ISBN")
 
-	c.JSON(204, gin.H{"message": "done"})
+	res := initializers.DB.Save(&updateIssueRegistry)
+
+	print(res.Error, "this is error")
+
+	c.JSON(204, updateIssueRegistry)
 }
