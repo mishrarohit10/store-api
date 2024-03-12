@@ -14,7 +14,6 @@ function goToRaiseissue() {
     location.assign('/resolveIssue')
 }
 
-
 const button = document.querySelector('button[name="issues"]');
 
 button.addEventListener('click', function () {

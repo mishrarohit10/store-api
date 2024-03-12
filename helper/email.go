@@ -121,5 +121,5 @@ func Mail() {
 	// 	Address: "user2@yandex.com",
 	// }}
 
-	SendToMultipleRecipientsWithGomailV2(recipients, "BOOK", "New Book is added check it now")
+	SendToMultipleRecipientsWithGomailV2(recipients, "A new book is added to the inventory", "<h1>A New Book is added in the library check it now</h1>")
 }
