@@ -33,4 +33,3 @@ func IsAuthorized() gin.HandlerFunc {
 		c.Next()
 	}
 }
-pe9cdzh4bbzvt9p
