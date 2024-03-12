@@ -1,13 +1,13 @@
 package controllers
 
 import (
+	"LibManSys/api/helper"
 	"LibManSys/api/initializers"
 	"LibManSys/api/models"
 	"LibManSys/api/utils"
-	"github.com/gin-gonic/gin"
 	"log"
 	"time"
-	// "github.com/gin-gonic/gin/binding"
+	"github.com/gin-gonic/gin"
 )
 
 func Admin(c *gin.Context) {
@@ -15,19 +15,19 @@ func Admin(c *gin.Context) {
 	cookie, err := c.Cookie("token")
 
 	if err != nil {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
 	claims, err := utils.ParseToken(cookie)
 
 	if err != nil {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
 	if claims.Role != "admin" {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
@@ -37,14 +37,74 @@ func Admin(c *gin.Context) {
 }
 
 func HTMLAddBooks(c *gin.Context) {
+
+	cookie, err := c.Cookie("token")
+
+	if err != nil {
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
+		return
+	}
+
+	claims, err := utils.ParseToken(cookie)
+
+	if err != nil {
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
+		return
+	}
+
+	if claims.Role != "admin" {
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
+		return
+	}
+
 	c.HTML(200, "addBooks.html", "HTML")
 }
 
 func HTMLRemoveBooks(c *gin.Context) {
+
+	cookie, err := c.Cookie("token")
+
+	if err != nil {
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
+		return
+	}
+
+	claims, err := utils.ParseToken(cookie)
+
+	if err != nil {
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
+		return
+	}
+
+	if claims.Role != "admin" {
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
+		return
+	}
+
 	c.HTML(200, "removeBook.html", "HTML")
 }
 
 func HTMLUpdateBooks(c *gin.Context) {
+
+	cookie, err := c.Cookie("token")
+
+	if err != nil {
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
+		return
+	}
+
+	claims, err := utils.ParseToken(cookie)
+
+	if err != nil {
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
+		return
+	}
+
+	if claims.Role != "admin" {
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
+		return
+	}
+
 	c.HTML(200, "updateBooks.html", "HTML")
 }
 
@@ -53,19 +113,19 @@ func AddBooks(c *gin.Context) {
 	cookie, err := c.Cookie("token")
 
 	if err != nil {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
 	claims, err := utils.ParseToken(cookie)
 
 	if err != nil {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
 	if claims.Role != "admin" {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
@@ -111,6 +171,7 @@ func AddBooks(c *gin.Context) {
 		log.Println("inside result")
 		initializers.DB.Save(&inventory)
 		c.JSON(200, inventory)
+		helper.Mail()
 	} else {
 		// update TotalCopies
 
@@ -128,6 +189,7 @@ func AddBooks(c *gin.Context) {
 			c.JSON(400, gin.H{"error": err.Error()})
 			return
 		}
+		helper.Mail()
 		c.JSON(200, updatedInventory)
 	}
 }
@@ -137,19 +199,19 @@ func RemoveBooks(c *gin.Context) {
 	cookie, err := c.Cookie("token")
 
 	if err != nil {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
 	claims, err := utils.ParseToken(cookie)
 
 	if err != nil {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
 	if claims.Role != "admin" {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
@@ -191,19 +253,19 @@ func UpdateBook(c *gin.Context) {
 	cookie, err := c.Cookie("token")
 
 	if err != nil {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
 	claims, err := utils.ParseToken(cookie)
 
 	if err != nil {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
 	if claims.Role != "admin" {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
@@ -265,19 +327,19 @@ func ListIssue(c *gin.Context) {
 	cookie, err := c.Cookie("token")
 
 	if err != nil {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
 	claims, err := utils.ParseToken(cookie)
 
 	if err != nil {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
 	if claims.Role != "admin" {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
@@ -299,19 +361,19 @@ func ResolveIssue(c *gin.Context) {
 	cookie, err := c.Cookie("token")
 
 	if err != nil {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
 	claims, err := utils.ParseToken(cookie)
 
 	if err != nil {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
 	if claims.Role != "admin" {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
@@ -352,7 +414,7 @@ func ResolveIssue(c *gin.Context) {
 	updateIssueRegistry.IssueStatus = "accepted"
 	updateIssueRegistry.IssueDate = time.Now()
 	updateIssueRegistry.ExpectedReturnDate = time.Now().AddDate(0, 0, 7)
-	updateIssueRegistry.ReturnDate = time.Now().AddDate(0, 0, 7)
+	updateIssueRegistry.ReturnDate = time.Now().AddDate(0,0,7)
 
 	log.Println(updateIssueRegistry.ISBN, "updated issue reg ISBN")
 

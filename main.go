@@ -4,6 +4,7 @@ import (
 	"LibManSys/api/controllers"
 	"LibManSys/api/initializers"
 	"LibManSys/api/middlewares"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
@@ -55,6 +56,7 @@ func main() {
 	r.GET("/searchByTitle/:title", controllers.SearchByTitle)
 	r.GET("/searchByAuthor/:author", controllers.SearchByAuthor)
 	r.GET("/searchByPublisher/:publisher", controllers.SearchByPublisher)
+	r.GET("/getAllBooks", controllers.GetAllBooks)
 
 	r.Run()
 }

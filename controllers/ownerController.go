@@ -40,28 +40,13 @@ func LibCreate(c *gin.Context) {
 		Role     string `json:"role"`
 	}
 
-	// type EmailRequestBody struct {
-	// 	Role  string `json:"role"`
-	// 	Email string `json:"email"`
-	// }
-
-	// // log.Println("error is test")
-	// var requestBody EmailRequestBody
-
-	// if err := c.ShouldBindBodyWith(&requestBody, binding.JSON); err != nil {
-	// 	c.JSON(400, gin.H{"error": err.Error()})
-	// }
-	// log.Println(requestBody.Email)
-	// if requestBody.Role != "Owner" {
-	// 	c.JSON(400, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
 
 	log.Println(library)
 	if err := c.ShouldBindBodyWith(&library, binding.JSON); err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
+
 	log.Println(library)
 	log.Println(library.LibName, "name og teh lib")
 	var existingLib models.Library
@@ -125,19 +110,19 @@ func Owner(c *gin.Context) {
 	cookie, err := c.Cookie("token")
 
 	if err != nil {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
 	claims, err := utils.ParseToken(cookie)
 
 	if err != nil {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
 	if claims.Role != "owner" {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 

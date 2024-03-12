@@ -109,34 +109,7 @@ func Signup(c *gin.Context) {
 
 func Home(c *gin.Context) {
 
-	// cookie, _ := c.Cookie("token")
-
-	// // if err != nil {
-	// // 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// // 	return
-	// // }
-	// if len(cookie) == 0 {
-	// 	c.HTML(200, "index.html", gin.H{"role": ""})
-	// 	return
-	// }
-	// claims, err := utils.ParseToken(cookie)
-
-	// if err != nil {
-	// 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
-
-	// // if claims.Role != "admin" {
-	// // 	c.JSON(401, gin.H{"error": "unauthorized"})
-	// // 	return
-	// // }
-
-	// log.Println(cookie,"cookie")
-	// log.Println(claims.Role,"role")
-
-	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
 	log.Println("home")
-	// c.HTML(200, "index.html", gin.H{"role": claims.Role})
 	c.HTML(200, "index.html", "nice")
 }
 

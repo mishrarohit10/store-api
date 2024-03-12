@@ -3,7 +3,6 @@ package middlewares
 import (
 	"LibManSys/api/utils"
 	"log"
-
 	"github.com/gin-gonic/gin"
 )
 
@@ -13,7 +12,7 @@ func IsAuthorized() gin.HandlerFunc {
 
 		if err != nil {
 			log.Println("1")
-			c.JSON(401, gin.H{"error": "unauthorized"})
+			c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 			c.Abort()
 			return
 		}
@@ -25,12 +24,13 @@ func IsAuthorized() gin.HandlerFunc {
 		if err != nil {
 			log.Println(err.Error())
 			log.Println("1")
-			c.JSON(401, gin.H{"error": "unauthorized"})
+			c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 			c.Abort()
 			return
 		}
-
+    
 		c.Set("role", claims.Role)
 		c.Next()
 	}
 }
+pe9cdzh4bbzvt9p

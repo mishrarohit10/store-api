@@ -29,14 +29,19 @@
         <button onclick="author()" id="delete" type="button">Search By Author</button>
         <button onclick="publisher()" id="update" type="button">Search By Publisher</button>
         <button onclick="raiseIssue()" id="normal" type="button">Raise Issue</button>
+        <button onclick="getAllBooks()" id="getAllBooks" type="button">Show Available Books</button>
     </div>
+
+    <!-- <div class="center">
+        <h1>Books will be shown here</h1>
+    </div> -->
 
     <div class="container">
     </div>
 
-    <footer>Copyright &copy 2024 mishrarohit10</footer>
 
 </body>
+<!-- <footer>Copyright &copy 2024 mishrarohit10</footer> -->
 <script>
     function getTitle() {
         location.assign("/getTitle")
@@ -52,6 +57,44 @@
 
     function raiseIssue() {
         location.assign("/raiseIssue")
+    }
+
+    async function getAllBooks() {
+        const container = document.querySelector('.container');
+
+        var button = document.getElementById('getAllBooks')
+        button.disabled = true;
+        try {
+            const res = await fetch("/getAllBooks", {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const data = await res.json();
+            console.log(data.length);
+            if (data.length == 0) {
+                document.getElementById('h').innerHTML = 'no data available'
+                return;
+            }
+            data.forEach(item => {
+                console.log(item);
+
+                const card = document.createElement('div');
+                card.classList.add('card');
+
+                const title = document.createElement('h1');
+                title.textContent = item.title;
+
+                const body = document.createElement('p');
+                body.textContent = item.authors;
+
+                card.appendChild(title);
+                card.appendChild(body);
+                container.appendChild(card);
+
+            });
+        } catch (err) {
+            console.log(err);
+        }
     }
 </script>
 

@@ -15,19 +15,19 @@ func SearchByTitle(c *gin.Context) {
 	cookie, err := c.Cookie("token")
 
 	if err != nil {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
 	claims, err := utils.ParseToken(cookie)
 
 	if err != nil {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
 	if claims.Role != "reader" {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
@@ -72,19 +72,19 @@ func SearchByAuthor(c *gin.Context) {
 	cookie, err := c.Cookie("token")
 
 	if err != nil {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
 	claims, err := utils.ParseToken(cookie)
 
 	if err != nil {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
 	if claims.Role != "reader" {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
@@ -93,7 +93,6 @@ func SearchByAuthor(c *gin.Context) {
 	Authors := c.Param("author")
 
 	log.Println(Authors, "------------Authors-----------")
-
 
 	var book []models.BookInventory
 
@@ -135,19 +134,19 @@ func SearchByPublisher(c *gin.Context) {
 	cookie, err := c.Cookie("token")
 
 	if err != nil {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
 	claims, err := utils.ParseToken(cookie)
 
 	if err != nil {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
 	if claims.Role != "reader" {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
@@ -156,25 +155,6 @@ func SearchByPublisher(c *gin.Context) {
 	Publisher := c.Param("publisher")
 
 	log.Println(Publisher, "------------Publisher-----------")
-
-	// type EmailRequestBody struct {
-	// 	Role  string `json:"role"`
-	// 	Email string `json:"email"`
-	// }
-
-	// // log.Println("error is test")
-	// var requestBody EmailRequestBody
-
-	// if err := c.ShouldBindBodyWith(&requestBody, binding.JSON); err != nil {
-	// 	c.JSON(400, gin.H{"error": err.Error()})
-	// }
-
-	// log.Println(requestBody.Email)
-
-	// if requestBody.Role != "Reader" {
-	// 	c.JSON(400, gin.H{"error": "unauthorized"})
-	// 	return
-	// }
 
 	var book []models.BookInventory
 
@@ -210,22 +190,6 @@ func SearchByPublisher(c *gin.Context) {
 	log.Println(finalRes)
 	c.JSON(200, finalRes)
 
-	// log.Println(book)
-	// log.Println(book.Publisher)
-	// log.Println(book.AvailableCopies)
-
-	// if book.AvailableCopies <= 0 {
-	// 	response.Status = "not available"
-	// 	var issueReg models.IssueRegistry
-
-	// 	initializers.DB.Where("isbn = ?",book.ISBN).First(&issueReg)
-	// 	response.AvailableDate = issueReg.ExpectedReturnDate.String()
-	// } else {
-	// 	response.Status = "Available"
-	// 	response.AvailableDate = "Available now"
-	// }
-	// log.Println(response)
-	// c.JSON(200,response)
 }
 
 func RaiseIssue(c *gin.Context) {
@@ -233,19 +197,19 @@ func RaiseIssue(c *gin.Context) {
 	cookie, err := c.Cookie("token")
 
 	if err != nil {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
 	claims, err := utils.ParseToken(cookie)
 
 	if err != nil {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
 	if claims.Role != "reader" {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
@@ -273,23 +237,57 @@ func RaiseIssue(c *gin.Context) {
 	c.JSON(200, gin.H{"message": "Issue raised"})
 }
 
-func Reader(c *gin.Context) {
+func GetAllBooks(c *gin.Context) {
+
 	cookie, err := c.Cookie("token")
 
 	if err != nil {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
 	claims, err := utils.ParseToken(cookie)
 
 	if err != nil {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
 	if claims.Role != "reader" {
-		c.JSON(401, gin.H{"error": "unauthorized"})
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
+		return
+	}
+
+	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
+
+	var books []models.BookInventory
+
+	result := initializers.DB.Find(&books)
+
+	if result.Error != nil {
+		c.JSON(400, gin.H{"error": "Record not found!"})
+		return
+	}
+	c.JSON(200, books)
+}
+
+func Reader(c *gin.Context) {
+	cookie, err := c.Cookie("token")
+
+	if err != nil {
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
+		return
+	}
+
+	claims, err := utils.ParseToken(cookie)
+
+	if err != nil {
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
+		return
+	}
+
+	if claims.Role != "reader" {
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 		return
 	}
 
@@ -298,18 +296,98 @@ func Reader(c *gin.Context) {
 }
 
 func HTMLtitle(c *gin.Context) {
+
+	cookie, err := c.Cookie("token")
+
+	if err != nil {
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
+		return
+	}
+
+	claims, err := utils.ParseToken(cookie)
+
+	if err != nil {
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
+		return
+	}
+
+	if claims.Role != "reader" {
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
+		return
+	}
+
 	c.HTML(200, "searchTitle.html", "reader")
 }
 
 func HTMLauthor(c *gin.Context) {
+
+	cookie, err := c.Cookie("token")
+
+	if err != nil {
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
+		return
+	}
+
+	claims, err := utils.ParseToken(cookie)
+
+	if err != nil {
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
+		return
+	}
+
+	if claims.Role != "reader" {
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
+		return
+	}
+
 	c.HTML(200, "searchAuthor.html", "reader")
 }
 
 func HTMLpublisher(c *gin.Context) {
+
+	cookie, err := c.Cookie("token")
+
+	if err != nil {
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
+		return
+	}
+
+	claims, err := utils.ParseToken(cookie)
+
+	if err != nil {
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
+		return
+	}
+
+	if claims.Role != "reader" {
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
+		return
+	}
+
 	c.HTML(200, "searchPublisher.html", "reader")
 }
 
 func HTMLRaiseIssue(c *gin.Context) {
+
+	cookie, err := c.Cookie("token")
+
+	if err != nil {
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
+		return
+	}
+
+	claims, err := utils.ParseToken(cookie)
+
+	if err != nil {
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
+		return
+	}
+
+	if claims.Role != "reader" {
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
+		return
+	}
+
 	c.HTML(200, "raiseIssue.html", "reader")
 }
 
@@ -322,5 +400,25 @@ func HTMLUnauthorized(c *gin.Context) {
 }
 
 func HTMLResolveIssue(c *gin.Context) {
+
+	cookie, err := c.Cookie("token")
+
+	if err != nil {
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
+		return
+	}
+
+	claims, err := utils.ParseToken(cookie)
+
+	if err != nil {
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
+		return
+	}
+
+	if claims.Role != "reader" {
+		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
+		return
+	}
+
 	c.HTML(200, "resolveIssue.html", "reader")
 }

@@ -22,13 +22,6 @@
         </ul>
     </nav>
 
-
-    <!-- ----------------------------------------------------------------------------style------------------------ -->
-
-        
-
-
-        <!-- ----------------------------------------------------------------------------------------------------- -->
     <div class="logo">
         <img src="/public/Books_HD_(8314929977).jpg"  alt="image">
     </div>
@@ -38,25 +31,25 @@
         <h3>By mishrarohit10</h3>
     </div>
 
-    <footer>Copyright &copy 2024 mishrarohit10</footer>
+    <div class="button-container">
+        <button onclick="removeBook()" id="update" type="button">Admin</button>
+    </div>
+
+    <div class="button-container">
+        <button onclick="updateBook()" id="normal" type="button">Reader</button>
+    </div>
 
 </body>
 <script>
-    function addBook() {
-        location.assign("/addBooks")
-    }
-
     function removeBook() {
-        location.assign("/removeBooks")
+        location.assign("/admin")
     }
 
     function updateBook() {
-        location.assign("/updateBooks")
+        location.assign("/reader")
     }
-
-    function getIssue() {
-        location.assign("/getIssues")
-    }
+   
 </script>
-
+<!-- <footer>Copyright &copy 2024 mishrarohit10</footer> -->
 </html>
+
