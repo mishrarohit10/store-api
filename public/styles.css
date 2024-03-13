@@ -71,7 +71,7 @@ h1:hover {
 
 .btn {
     border-radius: 36px;
-    background: lightsalmon;
+    background: lightblue;
 }
 
 
@@ -116,7 +116,7 @@ label {
 button {
     margin-top: 30px;
     border-radius: 36px;
-    background: lightsalmon;
+    background: lightblue;
     border: 0;
     text-transform: uppercase;
     font-weight: 700;
@@ -298,13 +298,13 @@ footer {
 
  .card:hover {
     border: 2px solid black;
-    background-color: lightsalmon;
+    background-color: lightblue;
     color: black;
     font-size: 50px;
 }
 
-.card h1:hover {
-    background-color: lightsalmon;
+/* .card h1:hover {
+    background-color: lightseagreen;
     color: black;
-    font-size: 50px;
-}
+    font-size: 20px;
+} */

@@ -5,9 +5,7 @@ import (
 	"LibManSys/api/models"
 	"LibManSys/api/utils"
 	"github.com/gin-gonic/gin"
-	// "github.com/gin-gonic/gin/binding"
 	"log"
-	// "github.com/gin-gonic/gin/binding"
 )
 
 func SearchByTitle(c *gin.Context) {
@@ -101,6 +99,8 @@ func SearchByAuthor(c *gin.Context) {
 	if result.Error != nil {
 		log.Println("error db")
 	}
+
+	log.Println(book, "books-----------------------------------------------------")
 
 	type response struct {
 		Title         string

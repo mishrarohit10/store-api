@@ -1,5 +1,3 @@
-// PATH: go-auth/controllers/auth.go
-
 package controllers
 
 import (
@@ -69,8 +67,6 @@ func Login(c *gin.Context) {
 		"user":    user.Email})
 }
 
-// PATH: go-auth/controllers/auth.go
-
 func Signup(c *gin.Context) {
 	var user models.User
 
@@ -105,15 +101,10 @@ func Signup(c *gin.Context) {
 	c.JSON(200, gin.H{"role": user.Role})
 }
 
-// PATH: go-auth/controllers/auth.go
-
 func Home(c *gin.Context) {
-
 	log.Println("home")
 	c.HTML(200, "index.html", "nice")
 }
-
-// PATH: go-auth/controllers/auth.go
 
 func Premium(c *gin.Context) {
 
@@ -124,8 +115,6 @@ func Premium(c *gin.Context) {
 	log.Println(email, password)
 	c.HTML(200, "login.html", gin.H{"message": "login Page"})
 }
-
-// PATH: go-auth/controllers/auth.go
 
 func Logout(c *gin.Context) {
 	c.SetCookie("token", "", -1, "/", "localhost", false, true)

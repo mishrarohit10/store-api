@@ -1,5 +1,3 @@
-// PATH: go-auth/utils/ParseToken.go
-
 package utils
 
 import (

@@ -3,10 +3,8 @@ package initializers
 import (
 	"LibManSys/api/models"
 	"log"
-
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	// "os"
 )
 
 

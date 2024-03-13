@@ -151,6 +151,10 @@ async function deleteBook() {
         });
         const data = await res.json();
         console.log(data);
+        if(data.message) {
+            const h2 = document.getElementById('h');
+            h2.innerHTML = data.message;
+        }
     }
     catch (err) {
         console.log(" err inside");

@@ -6,7 +6,9 @@ import (
 	"LibManSys/api/models"
 	"LibManSys/api/utils"
 	"log"
+	"net/http"
 	"time"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -225,7 +227,7 @@ func RemoveBooks(c *gin.Context) {
 	result := initializers.DB.Find(&inventory, ID)
 
 	if result.Error != nil {
-		c.JSON(400, gin.H{"message": "book not found"})
+		c.JSON(http.StatusBadRequest, gin.H{"message": "book not found"})
 		return
 	}
 
@@ -239,7 +241,7 @@ func RemoveBooks(c *gin.Context) {
 			return
 		}
 	} else {
-		c.JSON(200, gin.H{"message": "available copies is zero"})
+		c.JSON(404, gin.H{"message": "available copies is zero"})
 		return
 	}
 
