@@ -40,7 +40,6 @@ func LibCreate(c *gin.Context) {
 		Role     string `json:"role"`
 	}
 
-
 	log.Println(library)
 	if err := c.ShouldBindBodyWith(&library, binding.JSON); err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})

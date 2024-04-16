@@ -12,7 +12,7 @@ type Claims struct {
 
 type User struct {
 	ID            int    `json:"id" gorm:"primary_key"`
-	Name          string `json:"name"`
+	Name          string `json:"username"`
 	Email         string `json:"email" binding:"email"`
 	ContactNumber string `json:"contactNumber"`
 	Role          string `json:"role"`
@@ -23,10 +23,10 @@ type User struct {
 type RequestEvents struct {
 	ReqID        int `json:"id" gorm:"primary_key"`
 	BookID       int `json:"bookId"`
-	ReaderID     int	`json:"readerId"`
-	RequestDate  time.Time	
-	ApprovalDate time.Time	
-	ApprovalID   int	
+	ReaderID     int `json:"readerId"`
+	RequestDate  time.Time
+	ApprovalDate time.Time
+	ApprovalID   int
 	RequestType  string
 }
 
@@ -37,7 +37,7 @@ type Library struct {
 
 type IssueRegistry struct {
 	IssueID            int `json:"issueId" gorm:"primary_key"`
-	ISBN               int	
+	ISBN               int
 	ReaderID           int
 	IssueApprovedID    int
 	IssueStatus        string
@@ -57,5 +57,3 @@ type BookInventory struct {
 	TotalCopies     int    `json:"totalCopies"`
 	AvailableCopies int    `json:"availableCopies"`
 }
-
-

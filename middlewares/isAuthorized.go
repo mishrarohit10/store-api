@@ -10,6 +10,9 @@ func IsAuthorized() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		cookie, err := c.Cookie("token")
 
+		log.Println(cookie,"this is cookie")
+		log.Println(err)
+
 		if err != nil {
 			log.Println("1")
 			c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
@@ -23,7 +26,7 @@ func IsAuthorized() gin.HandlerFunc {
 
 		if err != nil {
 			log.Println(err.Error())
-			log.Println("1")
+			log.Println("2")
 			c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
 			c.Abort()
 			return

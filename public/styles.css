@@ -44,7 +44,6 @@ nav {
     justify-content: space-between;
     align-items: flex-end;
     margin-bottom: 120px;
-    /* background-color: #ddd; */
 }
 
 nav ul {
@@ -53,7 +52,8 @@ nav ul {
 }
 
 nav li {
-    margin-left: 20px;
+    margin-right: 200px;
+    text-decoration: none;
 }
 
 nav li a {
@@ -63,6 +63,7 @@ nav li a {
     display: block;
     padding: 10px 16px;
     letter-spacing: 2px;
+    text-decoration: none;
 }
 
 h1:hover {
@@ -73,7 +74,6 @@ h1:hover {
     border-radius: 36px;
     background: lightblue;
 }
-
 
 ul li:hover {
     /* border-radius: 36px; */
@@ -207,7 +207,8 @@ footer {
     border: 2px solid black;
     background-color: orchid;
     color: black;
-    font-size: 30px;}
+    font-size: 30px;
+}
 
 #delete:hover {
     text-align: center;
@@ -246,7 +247,7 @@ footer {
 }
 
 .button-container {
-    display:flex;
+    display: flex;
     justify-content: space-between;
     margin: 5 auto;
     padding: 30px;
@@ -296,15 +297,9 @@ footer {
     color: black;
 }
 
- .card:hover {
+.card:hover {
     border: 2px solid black;
     background-color: lightblue;
     color: black;
     font-size: 50px;
 }
-
-/* .card h1:hover {
-    background-color: lightseagreen;
-    color: black;
-    font-size: 20px;
-} */

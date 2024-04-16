@@ -103,7 +103,7 @@ func SearchByAuthor(c *gin.Context) {
 	log.Println(book, "books-----------------------------------------------------")
 
 	type response struct {
-		Title         string
+		Title         string `json:"title"`
 		Status        string
 		AvailableDate string
 	}
@@ -216,13 +216,38 @@ func RaiseIssue(c *gin.Context) {
 	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
 
 	var raise struct {
-		BookID int    `json:"bookID"`
-		Email  string `json:"email"`
+		BookID int `json:"bookID"`
+		// Email  string `json:"email"`
 	}
 
 	if err := c.ShouldBindJSON(&raise); err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
+		return
 	}
+
+	var book models.BookInventory
+
+	log.Println(raise.BookID, "this is book id")
+
+	if err := initializers.DB.Where("isbn =?", raise.BookID).Find(&book).Error; err != nil {
+		log.Println("invalid id")
+		c.JSON(400, gin.H{"error": "invalid book id"})
+		return
+	}
+
+	if book.ISBN == 0 {
+		log.Println(book.ISBN, "this is not good invalid id")
+		c.JSON(400, gin.H{"error": "invalid book id"})
+		return
+	}
+
+	// if Error != nil {
+	// 	log.Println("invalid id")
+	// 	c.JSON(400, gin.H{"error": "invalid book id"})
+	// 	return
+	// }``
+
+	log.Println(book, "this is book")
 
 	log.Println(raise.BookID, "this is issue")
 
@@ -239,24 +264,24 @@ func RaiseIssue(c *gin.Context) {
 
 func GetAllBooks(c *gin.Context) {
 
-	cookie, err := c.Cookie("token")
+	// cookie, err := c.Cookie("token")
 
-	if err != nil {
-		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
-		return
-	}
+	// if err != nil {
+	// 	c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
+	// 	return
+	// }
 
-	claims, err := utils.ParseToken(cookie)
+	// claims, err := utils.ParseToken(cookie)
 
-	if err != nil {
-		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
-		return
-	}
+	// if err != nil {
+	// 	c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
+	// 	return
+	// }
 
-	if claims.Role != "reader" {
-		c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
-		return
-	}
+	// if claims.Role != "reader"  {
+	// 	c.HTML(401, "login.html", gin.H{"error": "unauthorized"})
+	// 	return
+	// }
 
 	// c.JSON(200, gin.H{"success": "home page", "role": claims.Role})
 

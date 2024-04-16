@@ -4,10 +4,11 @@ import (
 	"LibManSys/api/initializers"
 	"LibManSys/api/models"
 	"LibManSys/api/utils"
-	"github.com/dgrijalva/jwt-go"
-	"github.com/gin-gonic/gin"
 	"log"
 	"time"
+
+	"github.com/dgrijalva/jwt-go"
+	"github.com/gin-gonic/gin"
 )
 
 var jwtKey = []byte("my_secret_key")
@@ -96,9 +97,12 @@ func Signup(c *gin.Context) {
 		user.Role = "reader"
 	}
 
-	initializers.DB.Create(&user)
 
-	c.JSON(200, gin.H{"role": user.Role})
+	initializers.DB.Create(&user)
+	log.Println("reated user",user	)
+
+	c.JSON(200, gin.H{"role": user.Role,
+		"message": "created"})
 }
 
 func Home(c *gin.Context) {
@@ -118,7 +122,7 @@ func Premium(c *gin.Context) {
 
 func Logout(c *gin.Context) {
 	c.SetCookie("token", "", -1, "/", "localhost", false, true)
-	c.HTML(200, "index.html",gin.H{"message": "user logged out"})
+	c.HTML(200, "index.html", gin.H{"message": "user logged out"})
 }
 
 func SignUpGet(c *gin.Context) {
