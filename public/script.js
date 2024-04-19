@@ -25,7 +25,7 @@ async function getIssue() {
     const container = document.querySelector('.container');
 
     try {
-        const res = await fetch("/getIssues", {
+        const res = await fetch("/api/getIssues", {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         });
@@ -75,7 +75,7 @@ async function addBooks() {
     }
 
     try {
-        const res = await fetch('/addBooks', {
+        const res = await fetch('/api/addBooks', {
             method: 'POST',
             body: JSON.stringify({ ISBN, libID, title, authors, publisher, version, totalCopies, availableCopies, totalCopies }),
             headers: { 'Content-Type': 'application/json' }
@@ -111,7 +111,7 @@ async function updateBooks() {
     const totalCopies = Number(form.totalCopies.value);
     const availableCopies = Number(form.availableCopies.value);
 
-    var url = `/updateBook/${ISBN}`
+    var url = `/api/updateBook/${ISBN}`
     console.log(url);
     try {
         console.log(typeof (libID));
@@ -140,7 +140,7 @@ async function deleteBook() {
     // get values
     const id = Number(form.id.value);
 
-    var url = `/deleteBook/${id}`
+    var url = `/api/deleteBook/${id}`
     console.log(url);
     try {
         console.log(typeof (id));
@@ -170,7 +170,7 @@ async function searchByTitle() {
     // get values
     const title = form.title.value;
 
-    var url = `/searchByTitle/${title}`
+    var url = `/api/searchByTitle/${title}`
     console.log(url);
     try {
         console.log(typeof (title));
@@ -204,7 +204,7 @@ async function searchByAuthor() {
     // get values
     const author = form.author.value;
 
-    var url = `/searchByAuthor/${author}`
+    var url = `/api/searchByAuthor/${author}`
     console.log(url);
     try {
         console.log(typeof (author));
@@ -251,7 +251,7 @@ async function searchByPublisher() {
     // get values
     const publisher = form.publisher.value;
 
-    var url = `/searchByPublisher/${publisher}`
+    var url = `/api/searchByPublisher/${publisher}`
     console.log(url);
     try {
         console.log(typeof(publisher));
@@ -300,7 +300,7 @@ async function raiseIssue() {
     const email = form.email.value;
 
     try {
-        const res = await fetch('/raiseIssue', {
+        const res = await fetch('/api/raiseIssue', {
             method: 'POST',
             body: JSON.stringify({ bookID, email }),
             headers: { 'Content-Type': 'application/json' }
@@ -327,7 +327,7 @@ async function owner() {
     const username = form.username.value;
     const role = form.role.value;
     
-    var url = '/createLib'
+    var url = '/api/createLib'
     console.log(url);
     try {
         // console.log(typeof (id));
@@ -359,7 +359,7 @@ async function resolveIssue() {
     // get values
     const id = Number(form.id.value);
 
-    var url = `/resolveIssue/${id}`
+    var url = `/api/resolveIssue/${id}`
     console.log(url);
     try {
         console.log(typeof (id));

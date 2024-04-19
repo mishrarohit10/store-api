@@ -65,7 +65,7 @@
         var button = document.getElementById('getAllBooks')
         button.disabled = true;
         try {
-            const res = await fetch("/getAllBooks", {
+            const res = await fetch("api/getAllBooks", {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' }
             });
