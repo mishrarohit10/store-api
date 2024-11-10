@@ -4,6 +4,7 @@ import (
 	"LibManSys/api/controllers"
 	"LibManSys/api/initializers"
 	"LibManSys/api/middlewares"
+
 	// "time"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/contrib/static"
@@ -37,8 +38,8 @@ func main() {
 	r.GET("/login", controllers.Premium)
 	r.GET("/logout", controllers.Logout)
 	r.GET("/home", controllers.Home)
-	r.GET("/e", controllers.HTMLUnauthorized)
-	
+	r.GET("/", controllers.HTMLUnauthorized)
+
 	r.Use(middlewares.IsAuthorized())
 
 	r.GET("/admin", controllers.Admin)
@@ -51,7 +52,7 @@ func main() {
 	r.GET("/getTitle", controllers.HTMLtitle)
 	r.GET("/getAuthor", controllers.HTMLauthor)
 	r.GET("/getPublisher", controllers.HTMLpublisher)
-	r.GET("seIssue", controllers.HTMLRaiseIssue)
+	r.GET("/raiseIssue", controllers.HTMLRaiseIssue)
 	r.GET("/success", controllers.HTMLSuccess)
 	r.GET("/resolveIssue", controllers.HTMLResolveIssue)
 
