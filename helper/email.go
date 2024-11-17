@@ -32,7 +32,7 @@ func SendToMultipleRecipientsWithGomailV2(recipients []recipient, subject, messa
 	mail.SetHeader("Subject", subject)
 	mail.SetBody("text/html", message)
 
-	dialer := gomail.Dialer{Host: "smtp.gmail.com", Port: 587, Username: "mishrarohit316x@gmail.com", Password: "rnmz qvsx cysp ylol"}
+	dialer := gomail.Dialer{Host: "smtp.gmail.com", Port: 587, Username: "mishrarohit316x@gmail.com", Password: "xxxxxxxxxxxxxx"}
 	if err := dialer.DialAndSend(mail); err != nil {
 		log.Fatal(err)
 	}
