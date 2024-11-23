@@ -28,7 +28,6 @@ func SendToMultipleRecipientsWithGomailV2(recipients []recipient, subject, messa
 
 	mail.SetHeader("From", "mishrarohit316x@gmail.com")
 	mail.SetHeader("To", addresses...)
-	// mail.SetHeader("To", "rohit.mishra@xenonstack.com")
 	mail.SetHeader("Subject", subject)
 	mail.SetBody("text/html", message)
 
